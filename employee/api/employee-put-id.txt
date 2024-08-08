@@ -64,20 +64,6 @@ Scenarios:
    }
    Expected Status: 400 (Bad Request)
    Actual Status: 200 (OK)
-   Expected Response:
-   {
-     "partitionKey": "#string",
-     "sortKey": "#string",
-     "username": "#string",
-     "id": "#string",
-     "firstName": "#string",
-     "lastName": "#string",
-     "dependants": "#number",
-     "salary": "#number",
-     "gross": "#number",
-     "benefitsCost": "#number",
-     "net": "#number"
-   }
 
 Expected Behavior:
 - When the employee ID is not in UUID format, the endpoint should return a 400 Bad Request status.
