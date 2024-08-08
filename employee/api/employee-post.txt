@@ -1,0 +1,24 @@
+
+Bug Report: POST Request on /employee Endpoint
+
+Issue Summary:
+The POST endpoint /employee is designed to create a new employee record. However, the endpoint returns incorrect status codes for various invalid request conditions.
+
+Scenarios:
+
+1. Scenario Description: POST request with dependants field set to an extremely large number
+   Request Body:
+   {
+     "firstName": "Shawn",
+     "lastName": "Rs",
+     "dependants": 1000000000
+   }
+   Expected Status: 400 (Bad Request)
+   Actual Status: 405 (Method Not Allowed)
+   Expected Response: ""
+
+Steps to Reproduce:
+1. Send a POST request to /employee with the request body as specified in each scenario above.
+2. Observe the status code returned by the endpoint.
+
+

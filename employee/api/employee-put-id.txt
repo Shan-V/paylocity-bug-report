@@ -1,0 +1,93 @@
+
+Bug Report: PUT Request on /employee/{id} Endpoint
+
+Issue Summary:
+The PUT endpoint /employee/{id} is designed to accept an employee ID of UUID type. However, the endpoint returns incorrect status codes for invalid UUID formats and valid but non-existent UUIDs.
+
+Scenarios:
+
+1. Scenario Description: PUT request with non-UUID type id (string format)
+   Request Body:
+   {
+     "firstName": "any",
+     "lastName": "any",
+     "dependants": 1,
+     "id": "1234"
+   }
+   Expected Status: 400 (Bad Request)
+   Actual Status: 405 (Method Not Allowed)
+   Expected Response: ""
+
+2. Scenario Description: PUT request with non-UUID type id (numeric format)
+   Request Body:
+   {
+     "firstName": "any",
+     "lastName": "any",
+     "dependants": 1,
+     "id": 1234
+   }
+   Expected Status: 400 (Bad Request)
+   Actual Status: 405 (Method Not Allowed)
+   Expected Response: ""
+
+3. Scenario Description: PUT request with non-UUID type id (empty string)
+   Request Body:
+   {
+     "firstName": "any",
+     "lastName": "any",
+     "dependants": 1,
+     "id": ""
+   }
+   Expected Status: 400 (Bad Request)
+   Actual Status: 405 (Method Not Allowed)
+   Expected Response: ""
+
+4. Scenario Description: PUT request with invalid UUID type id (non-UUID format)
+   Request Body:
+   {
+     "firstName": "any",
+     "lastName": "any",
+     "dependants": 1,
+     "id": "375ceaca-b04c-4624-bbxx-7183dd5895xx"
+   }
+   Expected Status: 400 (Bad Request)
+   Actual Status: 405 (Method Not Allowed)
+   Expected Response: ""
+
+5. Scenario Description: PUT request with invalid UUID type id
+   Request Body:
+   {
+     "firstName": "any",
+     "lastName": "any",
+     "dependants": 1,
+     "id": "375ceaca-b04c-4624-baaa-7183dd5895dd"
+   }
+   Expected Status: 400 (Bad Request)
+   Actual Status: 200 (OK)
+   Expected Response:
+   {
+     "partitionKey": "#string",
+     "sortKey": "#string",
+     "username": "#string",
+     "id": "#string",
+     "firstName": "#string",
+     "lastName": "#string",
+     "dependants": "#number",
+     "salary": "#number",
+     "gross": "#number",
+     "benefitsCost": "#number",
+     "net": "#number"
+   }
+
+Expected Behavior:
+- When the employee ID is not in UUID format, the endpoint should return a 400 Bad Request status.
+- When the employee ID is in UUID format but is invalid or non-existent, the endpoint should return a 400 Bad Request status.
+
+Actual Behavior:
+- The endpoint returns a 405 Method Not Allowed status for non-UUID formatted employee IDs.
+- The endpoint returns a 200 OK status for an invalid UUID.
+
+Steps to Reproduce:
+1. Send a PUT request to /employee/{id} with the employee ID as specified in each scenario above.
+2. Observe the status code returned by the endpoint.
+

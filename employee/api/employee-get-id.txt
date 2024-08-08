@@ -1,0 +1,44 @@
+Bug Report: GET Request on /employee/{id} Endpoint
+
+Issue Summary:
+The GET endpoint /employee/{id} is designed to accept an employee ID of UUID type. However, the endpoint returns incorrect status codes for invalid UUID formats and valid but non-existent UUIDs.
+
+Scenarios:
+
+	1.	Scenario Description: GET request with employee ID as a numeric string instead of a UUID
+		Employee ID: “12345”
+		Expected Status: 400 (Bad Request)
+		Actual Status: 500 (Internal Server Error)
+
+	2.	Scenario Description: GET request with employee ID as a non-numeric string instead of a UUID
+		Employee ID: “foo”
+		Expected Status: 400 (Bad Request)
+		Actual Status: 500 (Internal Server Error)
+
+	3.	Scenario Description: GET request with employee ID as a number instead of a UUID
+		Employee ID: 1234
+		Expected Status: 400 (Bad Request)
+		Actual Status: 500 (Internal Server Error)
+
+	4.	Scenario Description: GET request with employee ID as an invalid UUID
+		Employee ID: “375ceaca-b04c-4624-bbaa-7183dd5895bb”
+		Expected Status: 400 (Bad Request)
+		Actual Status: 200 (OK)
+
+	5.	Scenario Description: GET request with employee ID that looks like a UUID but is not
+		Employee ID: “375ceaca-b04c-4624-bbxx-7183dd5895xx”
+		Expected Status: 400 (Bad Request)
+		Actual Status: 500 (Internal Server Error)
+
+Expected Behavior:
+	-	When the employee ID is not in UUID format, the endpoint should return a 400 Bad Request status.
+	-	When the employee ID is in UUID format but is invalid or non-existent, the endpoint should return a 400 Bad Request status.
+
+Actual Behavior:
+	-	The endpoint returns a 500 Internal Server Error status for non-UUID formatted employee IDs.
+	-	The endpoint returns a 200 OK status for an invalid UUID.
+
+Steps to Reproduce:
+	1.	Send a GET request to /employee/{id} with the employee ID as specified in each scenario above.
+	2.	Observe the status code returned by the endpoint.
+
