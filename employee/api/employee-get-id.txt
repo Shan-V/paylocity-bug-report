@@ -1,7 +1,7 @@
 Bug Report: GET Request on /employee/{id} Endpoint
 
 Issue Summary:
-The GET endpoint /employee/{id} is designed to accept an employee ID of UUID type. However, the endpoint returns incorrect status codes for invalid UUID formats and valid but non-existent UUIDs.
+The GET endpoint /employee/{id}
 
 Scenarios:
 

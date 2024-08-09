@@ -2,7 +2,7 @@
 Bug Report: POST Request on /employee Endpoint
 
 Issue Summary:
-The POST endpoint /employee is designed to create a new employee record. However, the endpoint returns incorrect status codes for various invalid request conditions.
+The POST endpoint /employee
 
 Scenarios:
 

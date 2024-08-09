@@ -1,0 +1,97 @@
+
+BUG 1: After Logout, Clicking Paylocity Benefits Dashboard Icon Shows Empty Employee Portal
+- Issue Summary:
+  After logging out of the Paylocity Benefits Dashboard, clicking the dashboard icon should redirect the user to the login page. 
+  However, the user is redirected to an empty employee portal where they can attempt to add an employee, although the process will fail.
+
+- Steps to Reproduce:
+  1. Login into the Paylocity Benefits Dashboard with valid credentials.
+  2. Logout from the portal.
+  3. Click the Paylocity Benefits Dashboard icon in the top left.
+
+- Expected Result:
+  The user should remain on the login page.
+
+- Actual Result:
+  The user sees the employee portal with no data and is allowed to attempt adding an employee, even though the process will not be successful.
+
+---
+
+BUG 2: No Dependents Limit Validation When Adding or Updating Employee
+- Issue Summary:
+  The application does not validate the "Dependents" field when adding or updating an employee. 
+  The field accepts any value, including negative numbers and numbers greater than 32, without displaying an error.
+
+- Steps to Reproduce:
+  1. Login to the portal with valid credentials.
+  2. Click the "Add Employee" button.
+  3. Fill in the "First Name", "Last Name", and "Dependents" fields.
+  4. Enter -1 or 33 as the value for "Dependents".
+
+- Expected Result:
+  The user should receive an error message stating that the "Dependents" value must be between 0 and 32.
+
+- Actual Result:
+  No error message is shown, and clicking the "Add/Update" button does nothing.
+
+---
+
+BUG 3: Employees' Last and First Name Fields Accept Invalid Values (Add/Update Employee)
+- Issue Summary:
+  The application allows invalid values such as numbers, special characters, 
+  and even the string "null" in the "First Name" and "Last Name" fields when adding or updating an employee.
+
+- Steps to Reproduce:
+  1. Login to the portal with valid credentials.
+  2. Click the "Add Employee" button.
+  3. Enter 1 as the "First Name".
+  4. Enter 2 as the "Last Name".
+  5. Enter 1 as the "Dependents".
+  6. Click the "Add/Update" button.
+
+- Expected Result:
+  The application should reject non-alphabetic characters for "First Name" and "Last Name".
+
+- Actual Result:
+  The user can add numbers or other invalid values as the first and last name.
+
+---
+
+BUG 4: Employee Last and First Name Fields Allow Excessive Lengths
+- Issue Summary:
+  The application allows excessively long input (e.g., 60 characters) for "First Name" and "Last Name" without any validation or error messages.
+
+- Steps to Reproduce:
+  1. Login to the portal with valid credentials.
+  2. Click the "Add Employee" button.
+  3. Enter aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa as the "First Name".
+  4. Enter aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa as the "Last Name".
+  5. Enter 1 as the "Dependents".
+  6. Click the "Add/Update" button.
+
+- Expected Result:
+  The application should notify the user that the "First Name" and "Last Name" fields have a length limit.
+
+- Actual Result:
+  No error message is displayed, and clicking the "Add/Update" button does nothing.
+
+---
+
+BUG 5: UX Issue - Long Employee Names Do Not Wrap and Are Cut Off
+- Issue Summary:
+  When entering a long "First Name" or "Last Name", the text does not wrap to the next line and instead extends beyond the visible area, 
+  causing the content to be hidden on the right side.
+
+- Steps to Reproduce:
+  1. Login to the portal with valid credentials.
+  2. Click the "Add Employee" button.
+  3. Enter aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa as the "First Name".
+  4. Enter aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa as the "Last Name".
+
+- Expected Result:
+  The "First Name" and "Last Name" should wrap to the next line after reaching a certain length.
+
+- Actual Result:
+  The text does not wrap, and the table extends to the right, causing the content to be hidden.
+
+---
